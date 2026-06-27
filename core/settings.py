@@ -42,6 +42,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+EXTERNAL_APPS = [
+    'shared.apps.SharedConfig',
+    'authentication.apps.AuthenticationConfig',
+    'product.apps.ProductConfig',
+    'review.apps.ReviewConfig',
+    'cart.apps.CartConfig',
+    'checkout.apps.CheckoutConfig',
+    'payment.apps.PaymentConfig',
+    'order.apps.OrderConfig',
+]
+
+INSTALLED_APPS += EXTERNAL_APPS
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

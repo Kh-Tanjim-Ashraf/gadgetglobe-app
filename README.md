@@ -1,6 +1,6 @@
 # GadgetGlobe E-commerce
 
-<u>**OSTAD Exam Project:**</u> A single vendor e-commerce (_GadgetGlobe_) for budget PCs, AI workstations, servers, laptops including other technology products.
+<u>**OSTAD Exam Project:**</u> A single vendor e-commerce (_GadgetGlobe_) for budget PCs, AI workstations, servers, laptops including other technology products. It's a server-side rendering app developed in the monolith architecture.
 
 ## How to Setup
 
@@ -8,19 +8,19 @@
 
 \# Create virtual environment inside the project directory.
 
-        python -m venv env
+    python -m venv env
 
 \# Activate the virtual enviroment.
 
-        Windows (CMD): .\env\Scripts\activate
+    Windows (CMD): .\env\Scripts\activate
 
-        Windows (bash): source env/Scripts/activate
+    Windows (bash): source env/Scripts/activate
 
-        MacOS/Linux: source env/bin/activate
+    MacOS/Linux: source env/bin/activate
 
 \# Install the dependencies from "**requirements.txt**" file.
 
-        pip install -r requirements.txt
+    pip install -r requirements.txt
 
 <u>**Setup Dockerized PostgreSQL Server**</u>
 
@@ -28,18 +28,18 @@
 
 \# Download the latest docker image for PostgreSQL.
 
-        docker pull postgres:latest
+    docker pull postgres:latest
 
 \# Use the following command to spin up a dockerized PostgreSQL server with required credentials.
 
-        docker run -d
-            --name gadget-globe
-            -e POSTGRES_DB=gadget_globe
-            -e POSTGRES_USER=gadget_globe_admin
-            -e POSTGRES_PASSWORD=secret
-            -p 5430:5432
-            -v "path/to/host/machine/:/var/lib/postgresql"
-            postgres:latest
+    docker run -d
+        --name gadget-globe
+        -e POSTGRES_DB=gadget_globe
+        -e POSTGRES_USER=gadget_globe_admin
+        -e POSTGRES_PASSWORD=secret
+        -p 5430:5432
+        -v "path/to/host/machine/:/var/lib/postgresql"
+        postgres:latest
 
 💡 <u>**Note:**</u> <br/>
 
@@ -52,27 +52,27 @@
 
 \# Define the values accordingly to the following keys inside the file.
 
-        # Django
-        SECRET_KEY=""
-        DEBUG=
+    # Django
+    SECRET_KEY=""
+    DEBUG=
 
-        # Database
-        DB_ENGINE=""
-        DATABASE=
-        DB_USER=
-        DB_PASSWORD=
-        DB_HOST=
-        DB_PORT=
+    # Database
+    DB_ENGINE=""
+    DATABASE=
+    DB_USER=
+    DB_PASSWORD=
+    DB_HOST=
+    DB_PORT=
 
 <u>**Run Development Server**</u>
 
 \# Run the "**run_changes.sh**" bash script in the terminal for automating the execution of database migration commands & eventually run the server in development mode at **port 8080** in the host machine.
 
-        bash run_changes
+    bash run_changes
 
 \# Navigate to a browser and enter the following URL to view the web application.
 
-        http://127.0.0.1:8080/
+    http://127.0.0.1:8080/
 
 ## High Level Design (HLD)
 
