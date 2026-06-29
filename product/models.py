@@ -104,6 +104,7 @@ class ProductVariant(TimestampMixins):
     manufacturer_part_number = models.CharField(max_length=100, null=True, blank=True)
     sku = models.CharField(max_length=24, null=True, blank=True)
     stock_unit = models.PositiveIntegerField(default=0)
+    unit_price = models.DecimalField(max_digits=8, decimal_places=2)
     attribute_values = models.ManyToManyField(AttributeValue, related_name='product_variants')
     # TODO: Define the `description` as markdown field including a markdown-editor in the admin-panel
     description = models.TextField(null=True, blank=True, help_text="Provide a concise description of the product variant.")
