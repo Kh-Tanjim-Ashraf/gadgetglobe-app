@@ -135,3 +135,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+
+# Media files
+MEDIA_URL ='/media/'    # Used for browser URL-path
+MEDIA_ROOT = 'media'    # Used for host-machine's local directory path

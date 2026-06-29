@@ -44,7 +44,7 @@
 💡 <u>**Note:**</u> <br/>
 
 1. To avoid any port conflict with PostgreSQL running inside the host machine (_if any_), we mapped the container's port to a different host port (_5430_). <br/>
-2. Check if the dockerized PostgreSQL is successfully configured. [<u>**APPENDIX-1**</u>]
+2. Check if the dockerized PostgreSQL is successfully configured. [<u>**APPENDIX-1**</u>](#1-health-check-of-a-dockerized-postgresql)
 
 <u>**Configure .env File**</u>
 
@@ -75,6 +75,8 @@
     http://127.0.0.1:8080/
 
 ## High Level Design (HLD)
+
+1. Entity-Relationship (ER) diagram | [Link](./doc-resources/diagrams/erd.md)
 
 ## Low Level Design (LLD)
 
@@ -122,7 +124,7 @@ Your submission will be evaluated on the following:
 
 ## APENDIX
 
-**[1]** Health check of a dockerized PostgreSQL
+### [1] Health check of a dockerized PostgreSQL
 
 - Inside the terminal, execute the following `docker exec` command with extra parameters to enter into the PostgreSQL server inside the docker container.
 
