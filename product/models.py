@@ -3,12 +3,15 @@ from shared.models import TimestampMixins, NamedSlugMixins
 from shared.utils import random_alphanumeric
 
 
-# Note: I'm only make the `name` attributes unique, since the `slug` attributes will be automatically generated, thus it's not required to make the `slug` attribute unique as well
+# Note: I only made the `name` attributes unique, since the `slug` attributes will be automatically generated, thus it's not required to make the `slug` attribute unique as well
+
+# TODO: Make another abstract class in the "shared" module which will inherited by the "Brand", "Category" & "Product-Variant" tables for the <Featured-Record-Creation> method.Might required ti inherit the "save()" method.
 
 class Brand(TimestampMixins, NamedSlugMixins):
     logo = models.ImageField(null=True, blank=True, upload_to="product/brand-logo/")
     website = models.CharField(max_length=255, null=True, blank=True)
     country = models.CharField(max_length=50, unique=True)
+    is_featured = models.BooleanField(default=False)
 
     class Meta:
         constraints = [
@@ -20,6 +23,39 @@ class Brand(TimestampMixins, NamedSlugMixins):
     
     def __str__(self):
         return self.name
+    
+    def createFeaturedBrand(self):
+        # Lookup for the same record in the 'FeaturedCategory' table, create one if doesn't exist
+        return FeaturedBrand.objects.get_or_create(
+            brand_id=self.pk, 
+            defaults={'brand_id': self, 'name': self.name}
+        )
+    
+    def save(self, *args, **kwargs):
+        if self.pk:
+            # Brand Update
+            if self.is_featured:
+                super().save(*args, **kwargs)
+                return self.createFeaturedBrand()
+            else:
+                FeaturedBrand.objects.filter(brand_id=self.pk).delete()
+            return super().save(*args, **kwargs)
+        
+        else:
+            # Brand Create
+            if self.is_featured:
+                super().save(*args, **kwargs)
+                return self.createFeaturedBrand()
+            return super().save(*args, **kwargs)
+
+
+
+# Dedicated table displaying featured categories in home page
+class FeaturedBrand(TimestampMixins, NamedSlugMixins):
+    brand_id = models.OneToOneField(Brand, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Featured brand: {self.brand_id.name}"
 
 
 
@@ -69,7 +105,8 @@ class Category(TimestampMixins, NamedSlugMixins):
                 return self.createFeaturedCategory()
             
             return super().save(*args, **kwargs)
-        
+
+
 
 # Dedicated table displaying featured categories in home page
 class FeaturedCategory(TimestampMixins, NamedSlugMixins):
