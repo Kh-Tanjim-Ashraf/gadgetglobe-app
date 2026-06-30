@@ -70,7 +70,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -140,3 +140,9 @@ STATIC_URL = 'static/'
 # Media files
 MEDIA_URL ='/media/'    # Used for browser URL-path
 MEDIA_ROOT = 'media'    # Used for host-machine's local directory path
+
+
+# Authentication
+LOGIN_REDIRECT_URL = 'secretPage'
+LOGOUT_REDIRECT_URL = 'login'
+LOGIN_URL = 'login'                 # Redirects any un-authenticated user to Login page, if they want to access a protected page through manually typing in the URL input of browser
