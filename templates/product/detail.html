@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %} {% block 'main-content' %}
+<h1>Product Detail | {{ productVariant.product_id.name }}</h1>
+
+<p>
+    <img src="{{ images.image.url }}" alt="{{ productVariant.product_id.name }}" />
+</p>
+<p><a href=""><button>🛒 Add to Cart</button></a></p>
+<p>product_id: {{ productVariant.product_id }}</p>
+<p>status: {{ productVariant.status }}</p>
+<p>manufacturer_part_number: {{ productVariant.manufacturer_part_number }}</p>
+<p>sku: {{ productVariant.sku }}</p>
+<p>unit_price: {{ productVariant.unit_price }}</p>
+<p>attribute_values: {{ productVariant.attribute_values }}</p>
+<p>is_featured: {{ productVariant.is_featured }}</p>
+<p>description: {{ productVariant.description }}</p>
+
+{% endblock %}

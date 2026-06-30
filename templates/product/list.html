@@ -1,0 +1,28 @@
+{% extends 'base/base.html' %}
+
+{% block 'main-content' %}
+<h1>Product List</h1>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Add To Cart +</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for prod_v in prodVariants %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ prod_v.pk }}</td>
+            <td><a href="{% url 'productDetail' prod_v.pk %}">{{ prod_v.product_id.name }}</a></td>
+            <td>{{ prod_v.unit_price }}</td>
+            <td><a href=""><button>🛒 Add to Cart</button></a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

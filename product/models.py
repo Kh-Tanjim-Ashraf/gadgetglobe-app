@@ -148,7 +148,7 @@ class ProductVariant(TimestampMixins):
 
 
 class ProductImage(TimestampMixins):
-    product_variant_id = models.ForeignKey(ProductVariant, on_delete=models.CASCADE)
+    product_variant_id = models.ForeignKey(ProductVariant, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to="product/product-image/")
 
     def __str__(self):

@@ -25,4 +25,5 @@ urlpatterns = [
     path('', view=homePage, name='homePage'),
     path('secret/', view=secretPage, name='secretPage'),
     path('auth/', include('authentication.urls')),
+    path('product/', include('product.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

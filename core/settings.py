@@ -139,7 +139,7 @@ STATIC_URL = 'static/'
 
 # Media files
 MEDIA_URL ='/media/'    # Used for browser URL-path
-MEDIA_ROOT = 'media'    # Used for host-machine's local directory path
+MEDIA_ROOT = BASE_DIR / 'media'    # Used for host-machine's local directory path
 
 
 # Authentication

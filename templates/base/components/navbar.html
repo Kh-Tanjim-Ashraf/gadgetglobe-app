@@ -1,11 +1,15 @@
 <section class="navbar">
-  <h1>Navbar</h1>
+  <h1>GadgetGlobe</h1>
 
   <div class="nav-items" style="display: flex; gap: 5rem;">
     <p><a href="{% url 'homePage' %}" style="text-decoration: none;">Home</a></p>
-    <p>About us</p>
-    <p>Stay Connected</p>
-    <p>Social Logos</p>
+    <p><a href="{% url 'productList' %}" style="text-decoration: none;">Desktop</a></p>
+    <p><a href="{% url 'productList' %}" style="text-decoration: none;">Laptop</a></p>
+    <p><a href="{% url 'productList' %}" style="text-decoration: none;">Components</a></p>
+    <p><a href="{% url 'productList' %}" style="text-decoration: none;">Monitor</a></p>
+    <p><a href="{% url 'productList' %}" style="text-decoration: none;">TV</a></p>
+
+    <!-- Login/Logout Button -->
     <p>
         {% if request.user.is_authenticated %}
         <form action="{% url 'logout' %}" method="post">
