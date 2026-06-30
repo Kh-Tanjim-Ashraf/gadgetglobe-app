@@ -1,4 +1,7 @@
-<h1>This is login page!</h1>
+{% extends 'base/base.html' %}
+
+{% block 'main-content' %}
+<h1>Account Login</h1>
 
 <form method="post">
   {% csrf_token %} 
@@ -7,3 +10,4 @@
 
   <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
 </form>
+{% endblock %}

@@ -1,0 +1,20 @@
+<section class="navbar">
+  <h1>Navbar</h1>
+
+  <div class="nav-items" style="display: flex; gap: 5rem;">
+    <p><a href="{% url 'homePage' %}" style="text-decoration: none;">Home</a></p>
+    <p>About us</p>
+    <p>Stay Connected</p>
+    <p>Social Logos</p>
+    <p>
+        {% if request.user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+        {% else %}
+        <a href="{% url 'login' %}"><button>Login</button></a>
+        {% endif %}
+    </p>
+  </div>
+</section>
