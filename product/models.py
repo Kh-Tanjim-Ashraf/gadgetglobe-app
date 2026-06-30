@@ -25,6 +25,7 @@ class Brand(TimestampMixins, NamedSlugMixins):
 
 class Category(TimestampMixins, NamedSlugMixins):
     parent_id = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)      # Category/Sub-category
+    is_featured = models.BooleanField(default=False)
 
     class Meta:
         constraints = [
@@ -37,13 +38,53 @@ class Category(TimestampMixins, NamedSlugMixins):
     def __str__(self):
         return f"Category: {self.parent_id.name if self.parent_id else None}---Sub-category: {self.name}"
 
+    def createFeaturedCategory(self):
+        # Lookup for the same record in the 'FeaturedCategory' table, create one if doesn't exist
+        return FeaturedCategory.objects.get_or_create(
+            category_id=self.pk, 
+            defaults={'category_id': self, 'name': self.name}
+        )
+    
+    def save(self, *args, **kwargs):
+        if self.pk:
+            # Category Update
+            if self.is_featured:
+                # Mark an existing un-marked record
+                super().save(*args, **kwargs)
+                return self.createFeaturedCategory()
+
+            else:
+                # Un-mark an existing marked record
+                # Note: Check if a record exists in the "FeaturedCategory" table, then delete the record; 
+                # For avoiding the try/except block for lookup & then delete record, I used the filter method.
+                FeaturedCategory.objects.filter(category_id=self.pk).delete()
+                
+            return super().save(*args, **kwargs)
+        
+        else:
+            # Category Create
+            if self.is_featured:
+                # Save the category object first; so that if it's required to create a record in the 'FeaturedCategory' table, the object itself can be added in the 'category_id' field.
+                super().save(*args, **kwargs)
+                return self.createFeaturedCategory()
+            
+            return super().save(*args, **kwargs)
+        
+
+# Dedicated table displaying featured categories in home page
+class FeaturedCategory(TimestampMixins, NamedSlugMixins):
+    category_id = models.OneToOneField(Category, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Featured category: {self.category_id.name}"
+
 
 
 class Product(TimestampMixins, NamedSlugMixins):
     categories = models.ManyToManyField(Category, related_name='products')
     series = models.CharField(max_length=100, null=True, blank=True)
     model = models.CharField(max_length=100)
-    brand_id = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True)   # Regardless of brand-records, product-records should persist
+    brand_id = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True)   # Regardless of brand-records, product-records should persist inside DB
 
     def __str__(self):
         return f"Brand: {self.brand_id}---Product: {self.name}"

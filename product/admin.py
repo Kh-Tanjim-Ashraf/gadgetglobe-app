@@ -1,10 +1,11 @@
 from django.contrib import admin
-from product.models import Brand, Category, Product, ProductAttribute, AttributeValue, ProductVariant, ProductImage
+from product.models import Brand, Category, FeaturedCategory, Product, ProductAttribute, AttributeValue, ProductVariant, ProductImage
 
 
 
 admin.site.register(Brand)
 admin.site.register(Category)
+admin.site.register(FeaturedCategory)
 admin.site.register(Product)
 admin.site.register(ProductAttribute)
 admin.site.register(AttributeValue)
