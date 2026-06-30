@@ -3,7 +3,39 @@
 {% block 'main-content' %}
 <h1>Homepage</h1>
 
-<h2>Featured Category</h2>
-<h2>Featured Brands</h2>
-<h2>Featured Products</h2>
+
+<!-- Featured Category -->
+<section>
+    <h2>Featured Category</h2>
+
+    <div class="featured-categories" style="display: flex; gap: 5rem;">
+        {% for obj in featured_categories %}
+        <p>{{ obj.name }}</p>
+        {% endfor %}
+    </div>
+</section>
+
+
+<!-- Featured Brands -->
+<section>
+    <h2>Featured Brands</h2>
+
+    <div class="featured-brands" style="display: flex; gap: 5rem;">
+        {% for obj in featured_brands %}
+        <p>{{ obj.name }}</p>
+        {% endfor %}
+    </div>
+</section>
+
+
+<!-- Featured Products -->
+<section>
+    <h2>Featured Products</h2>
+
+    <div class="featured-products" style="display: flex; gap: 5rem;">
+        {% for obj in featured_product_variants %}
+        <p>{{ obj.product_id.name }}</p>
+        {% endfor %}
+    </div>
+</section>
 {% endblock %}

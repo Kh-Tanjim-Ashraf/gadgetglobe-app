@@ -21,6 +21,13 @@ class Brand(TimestampMixins, NamedSlugMixins):
                 name="unique_brand_name"
             )
         ]
+        
+        indexes = [
+            models.Index(
+                fields=["is_featured"],
+                name="idx_featured_brands"
+            )
+        ]
     
     def __str__(self):
         return self.name
@@ -35,6 +42,13 @@ class Category(TimestampMixins, NamedSlugMixins):
             models.UniqueConstraint(
                 fields=['name'],
                 name='unique_category_name'
+            )
+        ]
+
+        indexes = [
+            models.Index(
+                fields=["is_featured"],
+                name="idx_featured_categories"
             )
         ]
     
@@ -113,6 +127,14 @@ class ProductVariant(TimestampMixins):
     stripe_product_variant_id = models.CharField(max_length=30, null=True, blank=True)
     stripe_price_id = models.CharField(max_length=30, null=True, blank=True)
     is_featured = models.BooleanField(default=False)
+
+    class Meta:
+        indexes = [
+            models.Index(
+                fields=['is_featured'],
+                name='idx_featured_product_variant'
+            )
+        ]
 
     def __str__(self):
         return f"Brand: {self.product_id.brand_id}---Product: {self.product_id.name}---Model: {self.manufacturer_part_number}"
