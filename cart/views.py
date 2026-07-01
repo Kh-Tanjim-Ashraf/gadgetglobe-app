@@ -4,6 +4,7 @@ from product.models import ProductVariant
 from django.contrib.auth.decorators import login_required
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.contrib import messages
+from django.db import transaction
 
 
 
@@ -45,6 +46,7 @@ def redirectOrigin(request):
 
 
 @login_required
+@transaction.atomic
 def addToCart(request, pk):
     if request.method == "POST":
         # Check the user has a cart with status 'ACTIVE', otherwise create a new cart
@@ -60,7 +62,7 @@ def addToCart(request, pk):
         
         else:
             line_total = prod_v.unit_price * req_quantity
-            # Check same product variant exists in the same cart
+            # Check same product variant exists in the same cart, then update the cart-item with revised "line_total", otherwise create the cart-item
             cart_item, created = CartItem.objects.get_or_create(
                 cart_id=cart,
                 product_variant_id=prod_v,
