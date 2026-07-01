@@ -74,6 +74,28 @@
 
     http://127.0.0.1:8080/
 
+<u>**Ngrok: Publish Dev Server to Public**</u>
+
+\# Execute the following command to run Ngrok in docker.
+
+    docker run -d --name ngrok-agent --restart unless-stopped -it -e NGROK_AUTHTOKEN=xyz ngrok/ngrok:alpine http host.docker.internal:8080
+
+Since I'm running Ngrok inside docker & the Django app in Host machine, thus using `host.docker.internal` let the ngrok container route traffic back to my local computer's port.
+
+💡 **Note:** Define your specific `NGROK_AUTHTOKEN` from your Ngrok dashboard. I'm using the <u>free tier</u> of Ngrok. A common trade-off for this is Ngrok always provides **dynamic public domain** in each session.
+
+🐦‍🔥 **Solution:** Using wildcards (**\***) inside Django's `settings.py` file ensures a seamless development environment.
+
+\# Configure the `settings.py` to make this Django app to accept request from public domain.
+
+- Make the `ALLOWED_HOSTS` to accept request from any domain uisng the wildcard (**\***).
+
+        ALLOWED_HOSTS = ['*']
+
+- Define `CSRF_TRUSTED_ORIGINS` to accept request sends through `POST` requests from the public domain.
+
+        CSRF_TRUSTED_ORIGINS = ['https://*.ngrok-free.dev']
+
 ## High Level Design (HLD)
 
 1. Entity-Relationship (ER) diagram | [Link](./doc-resources/diagrams/erd.md)
