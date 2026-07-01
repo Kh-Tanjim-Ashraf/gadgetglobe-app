@@ -1,0 +1,43 @@
+{% extends 'base/base.html' %} 
+{% load static %}
+
+{% block 'main-content' %}
+<h1>Add to Cart</h1>
+
+<h3><b>User: {{ request.user.username }}</b></h3>
+<p><b>Cart ID: {{ cart.id }}</b></p>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Unit Price</th>
+      <th>SubTotal</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for obj in cartItems %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>
+        <a href="{% url 'productDetail' obj.product_variant_id.pk %}">{{ obj.product_variant_id.product_id.name }}</a>
+      </td>
+      <td>{{ obj.quantity }}</td>
+      <td>{{ obj.unit_price }}</td>
+      <td>{{ obj.line_total }}</td>
+      <td>
+        <form action="{% url 'deleteCartItem' obj.pk %}" method="post">
+          {% csrf_token %}
+          <button type="submit">
+              <img src="{% static 'images/icons/trash-bin.png' %}" alt="cart-delete-icon" height="15" width="15">
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

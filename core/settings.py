@@ -136,6 +136,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # Media files
 MEDIA_URL ='/media/'    # Used for browser URL-path
@@ -143,6 +146,6 @@ MEDIA_ROOT = BASE_DIR / 'media'    # Used for host-machine's local directory pat
 
 
 # Authentication
-LOGIN_REDIRECT_URL = 'secretPage'   # After succesful login, the user will be redirected to this view. It's also used to redirect the authenticated user from trying to access the login/registration/password-change page.
+LOGIN_REDIRECT_URL = 'secretPage'   # After successfully logged in, the user will be redirected to this view. It's also used to redirect the authenticated user from trying to access the login/registration/password-change page.
 LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login'                 # Redirects any un-authenticated user to Login page, if they want to access a protected page through manually typing the URL in the browser

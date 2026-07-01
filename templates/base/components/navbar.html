@@ -1,3 +1,4 @@
+{% load static %}
 <section class="navbar">
   <h1>GadgetGlobe</h1>
 
@@ -8,6 +9,10 @@
     <p><a href="{% url 'productList' %}" style="text-decoration: none;">Components</a></p>
     <p><a href="{% url 'productList' %}" style="text-decoration: none;">Monitor</a></p>
     <p><a href="{% url 'productList' %}" style="text-decoration: none;">TV</a></p>
+    <p><a href="{% url 'cartDetail' %}" style="text-decoration: none;">
+      <img src="{% static 'images/icons/add-to-cart.png' %}" alt="cart-icon" height="20" width="20">
+      My Cart
+    </a></p>
 
     <!-- Login/Logout Button -->
     <p>

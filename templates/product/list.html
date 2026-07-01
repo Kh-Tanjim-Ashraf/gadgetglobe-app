@@ -1,13 +1,19 @@
 {% extends 'base/base.html' %}
+{% load static %}
 
 {% block 'main-content' %}
 <h1>Product List</h1>
+
+<div class="message">
+    {% for msg in messages %}
+    <p>{{ msg }}</p>
+    {% endfor %}
+</div>
 
 <table border="1">
     <thead>
         <tr>
             <th>#</th>
-            <th>ID</th>
             <th>Name</th>
             <th>Price</th>
             <th>Add To Cart +</th>
@@ -17,10 +23,18 @@
         {% for prod_v in prodVariants %}
         <tr>
             <td>{{ forloop.counter }}</td>
-            <td>{{ prod_v.pk }}</td>
             <td><a href="{% url 'productDetail' prod_v.pk %}">{{ prod_v.product_id.name }}</a></td>
             <td>{{ prod_v.unit_price }}</td>
-            <td><a href=""><button>🛒 Add to Cart</button></a></td>
+            <td>
+                <form action="{% url 'addToCart' prod_v.pk %}" method="post">
+                    {% csrf_token %}
+                    <input type="number" name="quantity" value="1" hidden>
+                    <button type="submit">
+                        <img src="{% static 'images/icons/add-to-cart.png' %}" alt="cart-add-icon" height="15" width="15">
+                        Add to Cart
+                    </button>
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

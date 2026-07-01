@@ -26,4 +26,5 @@ urlpatterns = [
     path('secret/', view=secretPage, name='secretPage'),
     path('auth/', include('authentication.urls')),
     path('product/', include('product.urls')),
+    path('cart/', include('cart.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
